@@ -99,7 +99,6 @@ import android.widget.TextView;
     private Button btn1, btn2,btn3,btn4,btn5,btn6, btn7,btn8, btn9, btn0, btnPlus, btnMinus, btnMul, btnDiv, btnDel, btnPercent, btnEqual, btnAC, btnPoint, btndb0;
     TextView eq;
     TextView res;
-    Boolean add, sub, mul, div;
     String inputField = "";
     Boolean flag = false;
 
@@ -329,43 +328,40 @@ import android.widget.TextView;
             @Override
             public void onClick(View v) {
                 int leng = inputField.length() - 1;
+                if (leng >= 0) {
+                    char lastIndex;
+                    lastIndex = inputField.charAt(leng);
+                    if (lastIndex == '+' || lastIndex == '-' || lastIndex == '*' || lastIndex == '/') {
+                        return;
+
+                    } else {
+                        String num = "";
+                        while (leng >= 0) {
+                            if (lastIndex != '+' && lastIndex != '-' && lastIndex != '*' && lastIndex != '/') {
+                                num = lastIndex + num;
+                                leng--;
+                                lastIndex = inputField.charAt(leng);
+                            } else {
+                                float res = Float.parseFloat(num);
+                                res = res / 100;
+                                String str = Float.toString(res);
+                                num = "";
+                                String temp = "";
+                                for (int i = 0; i <= leng; i++) {
+                                    temp = temp + inputField.charAt(i);
+                                }
+
+                                inputField = temp + str;
+                                eq.setText(inputField);
+                                return;
+                            }
+                        }
+
+                    }
 
 
+                }
 
-
-                if (leng > 0) {
-
-
-//
-//                    char lastIndex;
-//                    lastIndex = inputField.charAt(leng);
-//                    if (lastIndex == '+' || lastIndex == '-' || lastIndex == '*' || lastIndex == '/') {
-//                        return;
-//
-//                    } else {
-//                        String num = "";
-//                        while (leng >= 0) {
-//                            lastIndex = inputField.charAt(leng);
-//                            if (lastIndex == '+' || lastIndex == '-' || lastIndex == '*' || lastIndex == '/') {
-//                                float res = Float.parseFloat(num);
-//
-//                                res = res / 100;
-//                                String str = Float.toString(res);
-//                                String temp = "";
-//                                for (int i = 0; i <= leng; i++) {
-//                                    temp = temp + inputField.charAt(i);
-//                                }
-//                                inputField = temp + str;
-//                                eq.setText(inputField);
-//                                return;
-//
-//                            } else {
-//                                num = num + lastIndex;
-//                                leng--;
-//                            }
-//                        }
-//                    }
-               }
                 else {
                     eq.setText("");
                 }
