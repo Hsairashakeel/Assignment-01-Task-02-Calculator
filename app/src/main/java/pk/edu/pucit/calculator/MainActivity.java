@@ -337,11 +337,26 @@ import android.widget.TextView;
                     } else {
                         String num = "";
                         while (leng >= 0) {
-                            if (lastIndex != '+' && lastIndex != '-' && lastIndex != '*' && lastIndex != '/') {
-                                num = lastIndex + num;
-                                leng--;
-                                lastIndex = inputField.charAt(leng);
-                            } else {
+                            if ( leng>0 && lastIndex != '+' && lastIndex != '-' && lastIndex != '*' && lastIndex != '/') {
+                                    num = lastIndex + num;
+                                    leng--;
+                                    lastIndex = inputField.charAt(leng);
+
+                            }
+                            else if(leng==0 && lastIndex != '+' && lastIndex != '-' && lastIndex != '*' && lastIndex != '/' )
+                                {
+                                    num = lastIndex + num;
+
+                                float res = Float.parseFloat(num);
+                                res = res / 100;
+                                String str = Float.toString(res);
+                                String temp = "";
+                                inputField = temp + str;
+                                eq.setText(inputField);
+                                return;
+                            }
+                            else
+                            {
                                 float res = Float.parseFloat(num);
                                 res = res / 100;
                                 String str = Float.toString(res);
@@ -355,11 +370,10 @@ import android.widget.TextView;
                                 eq.setText(inputField);
                                 return;
                             }
+
                         }
 
                     }
-
-
                 }
 
                 else {
